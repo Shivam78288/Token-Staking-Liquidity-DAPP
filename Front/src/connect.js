@@ -21,42 +21,30 @@ const ReserveContract = {
     abi: abis[3].abi
 }
 
-async function main(global) {  
+async function main() {  
   await provider.send("eth_requestAccounts", []);
-  global.signer = provider.getSigner();
-  global.admin = await signer.getAddress();
-  console.log("admin: " + global.admin);
+  window.signer = provider.getSigner();
+  window.admin = await signer.getAddress();
+  console.log("admin: " + window.admin);
 
   /*======
     INITIALIZING CONTRACT
     ======*/
-  global.mindpay = new ethers.Contract(Mindpay.address, Mindpay.abi, signer);
-  global.stakingContract = new ethers.Contract(StakingContract.address, StakingContract.abi, signer);
-  global.liquidityContract = new ethers.Contract(LiquidityContract.address, LiquidityContract.abi, signer);
-  global.reserveContract = new ethers.Contract(ReserveContract.address, ReserveContract.abi, signer);
+  window.mindpay = new ethers.Contract(Mindpay.address, Mindpay.abi, signer);
+  window.stakingContract = new ethers.Contract(StakingContract.address, StakingContract.abi, signer);
+  window.liquidityContract = new ethers.Contract(LiquidityContract.address, LiquidityContract.abi, signer);
+  window.reserveContract = new ethers.Contract(ReserveContract.address, ReserveContract.abi, signer);
   
   setInterval(async ()=>{
-    global.totalSupply = await mindpay.totalSupply();
-    global.mindpayBalOfUser = await reserveContract.reserveTokenBalanceOf(global.admin);
-    global.stakedMindpayBalOfUser = await reserveContract.stakedTokenBalanceOf(global.admin);
+    window.totalSupply = await mindpay.totalSupply();
+    window.mindpayBalOfUser = await reserveContract.reserveTokenBalanceOf(window.admin);
+    window.stakedMindpayBalOfUser = await reserveContract.stakedTokenBalanceOf(window.admin);
 
-    document.getElementById("totalSupply").textContent = ethers.utils.formatEther(global.totalSupply);
-    document.getElementById('mindpayBal').textContent = ethers.utils.formatEther(global.mindpayBalOfUser);
-    document.getElementById('stakedMindpayBal').textContent = ethers.utils.formatEther(global.stakedMindpayBalOfUser);
+    document.getElementById("totalSupply").textContent = ethers.utils.formatEther(window.totalSupply);
+    document.getElementById('mindpayBal').textContent = ethers.utils.formatEther(window.mindpayBalOfUser);
+    document.getElementById('stakedMindpayBal').textContent = ethers.utils.formatEther(window.stakedMindpayBalOfUser);
 
   }, 1000);
-
-  let myHTML = false;
-
-  if(!myHTML){
-    await global.reserveContract.changeLockPeriod(10);
-    await global.mindpay.functions.setReserveContract(ReserveContract.address);
-    await global.stakingContract.functions.setReserveContract(ReserveContract.address);
-    await global.liquidityContract.functions.setReserveContract(ReserveContract.address);
-    myHTML = true;
-  }
-  
-
+  document.getElementById('login').textContent = "Connected";
 
 }
-main(window);

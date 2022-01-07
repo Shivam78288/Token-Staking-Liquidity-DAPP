@@ -1,7 +1,6 @@
 {
   "name": "ropsten",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +12,21 @@
     "@openzeppelin/contracts": "^4.4.1",
     "@truffle/hdwallet-provider": "^2.0.0",
     "dotenv": "^10.0.0",
+    "lite-server": "^2.6.1",
     "path": "^0.12.7",
     "truffle-plugin-verify": "^0.5.20"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shivam78288/Token-Staking-Liquidity-DAPP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shivam78288/Token-Staking-Liquidity-DAPP/issues"
+  },
+  "homepage": "https://github.com/Shivam78288/Token-Staking-Liquidity-DAPP#readme",
+  "description": ""
 }
